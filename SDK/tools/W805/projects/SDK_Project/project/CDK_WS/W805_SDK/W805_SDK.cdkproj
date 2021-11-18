@@ -182,7 +182,9 @@
       <File Name="../../../../../../../app/src/wm_hal_msp.c">
         <FileOption/>
       </File>
-      <File Name="../../../../../../../app/src/wm_it.c"/>
+      <File Name="../../../../../../../app/src/wm_it.c">
+        <FileOption/>
+      </File>
     </VirtualDirectory>
     <VirtualDirectory Name="inc">
       <File Name="../../../../../../../app/inc/wm_it.h">
@@ -204,6 +206,36 @@
     <debugLayout/>
     <memoryTabColSizeExpressions>100:8;100:8;100:8;100:8;</memoryTabColSizeExpressions>
   </DebugSessions>
+  <VirtualDirectory Name="coremark">
+    <VirtualDirectory Name="inc">
+      <File Name="../../../../../../../coremark/inc/coremark.h">
+        <FileOption/>
+      </File>
+      <File Name="../../../../../../../coremark/inc/core_portme.h">
+        <FileOption/>
+      </File>
+    </VirtualDirectory>
+    <VirtualDirectory Name="src">
+      <File Name="../../../../../../../coremark/src/core_list_join.c">
+        <FileOption/>
+      </File>
+      <File Name="../../../../../../../coremark/src/core_main.c">
+        <FileOption/>
+      </File>
+      <File Name="../../../../../../../coremark/src/core_matrix.c">
+        <FileOption/>
+      </File>
+      <File Name="../../../../../../../coremark/src/core_portme.c">
+        <FileOption/>
+      </File>
+      <File Name="../../../../../../../coremark/src/core_state.c">
+        <FileOption/>
+      </File>
+      <File Name="../../../../../../../coremark/src/core_util.c">
+        <FileOption/>
+      </File>
+    </VirtualDirectory>
+  </VirtualDirectory>
   <BuildConfigs>
     <BuildConfig Name="BuildSet">
       <Target>
@@ -301,9 +333,9 @@
       <Compiler>
         <Define>GCC_COMPILE=1;TLS_CONFIG_CPU_XT804=1</Define>
         <Undefine/>
-        <Optim>Optimize more (-O2)</Optim>
-        <DebugLevel>Maximum (-g3)</DebugLevel>
-        <IncludePath>$(CDKPath)/CSKY/MinGW/csky-abiv2-elf-toolchain/csky-elfabiv2/include;$(ProjectPath);$(ProjectPath)/../../../../../../../include;$(ProjectPath)/../../../../../../../include/arch/xt804;$(ProjectPath)/../../../../../../../include/arch/xt804/csi_core;$(ProjectPath)/../../../../../../../include/arch/xt804/csi_dsp;$(ProjectPath)/../../../../../../../include/driver;$(ProjectPath)/../../../../../../../app/inc</IncludePath>
+        <Optim>Optimize most (-O3)</Optim>
+        <DebugLevel>None</DebugLevel>
+        <IncludePath>$(CDKPath)/CSKY/MinGW/csky-abiv2-elf-toolchain/csky-elfabiv2/include;$(ProjectPath);$(ProjectPath)/../../../../../../../app/inc;$(ProjectPath)/../../../../../../../coremark/inc;$(ProjectPath)/../../../../../../../include;$(ProjectPath)/../../../../../../../include/arch/xt804;$(ProjectPath)/../../../../../../../include/arch/xt804/csi_core;$(ProjectPath)/../../../../../../../include/arch/xt804/csi_dsp;$(ProjectPath)/../../../../../../../include/driver</IncludePath>
         <OtherFlags>-fdata-sections -c</OtherFlags>
         <Verbose>no</Verbose>
         <Ansi>no</Ansi>
@@ -314,12 +346,13 @@
         <AllWarn>yes</AllWarn>
         <WarnErr>no</WarnErr>
         <OneElfS>yes</OneElfS>
+        <OneElfSPerData>no</OneElfSPerData>
         <Fstrict>no</Fstrict>
       </Compiler>
       <Asm>
         <Define/>
         <Undefine/>
-        <IncludePath>$(CDKPath)/CSKY/csi/csi_core/csi_cdk/;$(CDKPath)/CSKY/csi/csi_core/include/;$(CDKPath)/CSKY/csi/csi_driver/include/;$(ProjectPath);$(ProjectPath)/../../../../../../../include;$(ProjectPath)/../../../../../../../include/arch/xt804;$(ProjectPath)/../../../../../../../include/arch/xt804/csi_core;$(ProjectPath)/../../../../../../../include/arch/xt804/csi_dsp;$(ProjectPath)/../../../../../../../include/os;$(ProjectPath)/../../../../../../../include/platform;$(ProjectPath)/../../../../../../../src/app/fatfs;$(ProjectPath)/../../../../../../../src/os/rtos/include</IncludePath>
+        <IncludePath>$(CDKPath)/CSKY/csi/csi_core/csi_cdk/;$(CDKPath)/CSKY/csi/csi_core/include/;$(CDKPath)/CSKY/csi/csi_driver/include/;$(ProjectPath);$(ProjectPath)/../../../../../../../coremark/inc;$(ProjectPath)/../../../../../../../include;$(ProjectPath)/../../../../../../../include/arch/xt804;$(ProjectPath)/../../../../../../../include/arch/xt804/csi_core;$(ProjectPath)/../../../../../../../include/arch/xt804/csi_dsp;$(ProjectPath)/../../../../../../../include/os;$(ProjectPath)/../../../../../../../include/platform;$(ProjectPath)/../../../../../../../src/app/fatfs;$(ProjectPath)/../../../../../../../src/os/rtos/include</IncludePath>
         <OtherFlags/>
         <DebugLevel>gdwarf2</DebugLevel>
       </Asm>
@@ -339,10 +372,12 @@
         <StopAt>yes</StopAt>
         <StopAtText>main</StopAtText>
         <InitFile>$(ProjectPath)..\..\..\..\..\..\..\tools\W805\utilities\gdb.init</InitFile>
+        <AfterLoadFile/>
         <AutoRun>yes</AutoRun>
         <ResetType>Hard Reset</ResetType>
         <SoftResetVal>0</SoftResetVal>
         <ResetAfterLoad>no</ResetAfterLoad>
+        <AfterResetFile/>
         <Dumpcore>no</Dumpcore>
         <DumpcoreText>$(ProjectPath)/$(ProjectName).cdkcore</DumpcoreText>
         <ConfigICE>
@@ -379,12 +414,13 @@
           <OpenOCDTclPortEnable>no</OpenOCDTclPortEnable>
           <OpenOCDTclPort>6666</OpenOCDTclPort>
           <OpenOCDConfigOptions/>
+          <OpenOCDTimeout>5000</OpenOCDTimeout>
         </ConfigOpenOCD>
       </Debug>
       <Flash>
         <InitFile>$(ProjectPath)..\..\..\..\..\..\..\tools\W805\utilities\flashinit</InitFile>
         <Erase>Erase Sectors</Erase>
-        <Algorithms Path="">W800_Flash_Tool.elf</Algorithms>
+        <Algorithms Path=""/>
         <Program>yes</Program>
         <Verify>yes</Verify>
         <ResetAndRun>no</ResetAndRun>
